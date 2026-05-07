@@ -1000,16 +1000,16 @@ fun Context.markThreadMessagesRead(threadId: Long) {
         put(Sms.READ, 1)
         put(Sms.SEEN, 1)
     }
-    val smsSelection = "${Sms.THREAD_ID}=? AND ${Sms.TYPE}=? AND (${Sms.READ}=? OR ${Sms.SEEN}=?)"
-    val smsArgs = arrayOf(id, Sms.MESSAGE_TYPE_INBOX.toString(), "0", "0")
+    val smsSelection = "${Sms.THREAD_ID}=? AND (${Sms.READ}=? OR ${Sms.SEEN}=?)"
+    val smsArgs = arrayOf(id, "0", "0")
     contentResolver.update(Sms.CONTENT_URI, smsValues, smsSelection, smsArgs)
 
     val mmsValues = ContentValues().apply {
         put(Mms.READ, 1)
         put(Mms.SEEN, 1)
     }
-    val mmsSelection = "${Mms.THREAD_ID}=? AND ${Mms.MESSAGE_BOX}=? AND (${Mms.READ}=? OR ${Mms.SEEN}=?)"
-    val mmsArgs = arrayOf(id, Mms.MESSAGE_BOX_INBOX.toString(), "0", "0")
+    val mmsSelection = "${Mms.THREAD_ID}=? AND (${Mms.READ}=? OR ${Mms.SEEN}=?)"
+    val mmsArgs = arrayOf(id, "0", "0")
     contentResolver.update(Mms.CONTENT_URI, mmsValues, mmsSelection, mmsArgs)
 
     messagesDB.markThreadRead(threadId)
